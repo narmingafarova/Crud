@@ -21,7 +21,8 @@ const UserPostsPage = () => {
 
   const getPosts = useCallback(() => {
     setPosts(null);
-    axios.get(`${BASE_URL}/posts?userId=${id}`)
+    axios
+      .get(`${BASE_URL}/posts?userId=${id}`)
       .then((res) => {
         setPosts(res.data);
         setError("");
@@ -52,7 +53,8 @@ const UserPostsPage = () => {
 
   const handleAddPost = useCallback(() => {
     setAddPosstLoading(true);
-    axios.get(`${BASE_URL}/posts`, {
+    axios
+      .get(`${BASE_URL}/posts`, {
         ...newPostDetails,
         userId: id,
       })
@@ -74,22 +76,23 @@ const UserPostsPage = () => {
   }, []);
 
   const handlePostDelete = useCallback((id) => {
-    if (window.confirm("Are you sure you want to delete this post?")) {
-      axios.delete(`${BASE_URL}/posts/${id}`)
-        .then(() => {
-          alert("Post deleted successfully");
-          getPosts();
-        })
-        .catch(() => {
-          alert("Unexpected error occured");
-        });
-    }
-  }, [getPosts]);
+      if (window.confirm("Are you sure you want to delete this post?")) {
+        axios.delete(`${BASE_URL}/posts/${id}`)
+          .then(() => {
+            alert("Post deleted successfully");
+            getPosts();
+          })
+          .catch(() => {
+            alert("Unexpected error occured");
+          });
+      }
+    }, [getPosts]);
 
   const handlePostEdit = useCallback(
     (postData) => {
       setEditPostLoading(true);
-      axios.put(`${BASE_URL}/posts/${postData.id}`)
+      axios
+        .put(`${BASE_URL}/posts/${postData.id}`)
         .then(() => {
           alert("Post edited successfully");
           setEditingPostId(null);
@@ -116,8 +119,7 @@ const UserPostsPage = () => {
           onToggle={() => setEditingPostId(null)}
         />
       );
-    }
-    else {
+    } else {
       return null;
     }
   }, [editingPostId, handlePostEdit, isEditPostLoading]);

@@ -35,7 +35,9 @@ const UsersPage = () => {
           <ListGroup>
             {usersData?.map((user, index) => (
               <ListGroupItem key={user.id}>
-                <Link className="link-success" to={`/users/${user.id}/posts`}>{index + 1}. {user.name} ({user.username})</Link>
+                <Link className="link-success" to={`/users/${user.id}/posts`}>
+                  {index + 1}. {user.name} ({user.username})
+                </Link>
               </ListGroupItem>
             ))}
           </ListGroup>
